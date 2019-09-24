@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhengsigen.java.test.UserMapper">
+
+	<insert id="addUser">
+		INSERT INTO user
+		(tel_number, id_number, name, passwd,
+		pay_passwd, bank_card)
+		VALUES
+		(#{telNumber},#{idNumber},#{name},#{passwd},#{payPasswd},#{bankCard})
+	</insert>
+
+	<select id="login" resultType="cn.zhengsigen.java.test.User">
+
+		SELECT id, tel_number telNumber, id_number idNumber, name, passwd,
+		pay_passwd payPasswd, bank_card bankCard, money, create_time
+		createTime, update_time updateTime
+		FROM user where name=#{name} and
+		passwd=#{passwd}
+
+	</select>
+
+	<update id="addMoney">
+		update user set money=money+#{money} where id=#{id}
+	</update>
+	<update id="takeMoney">
+		update user set money=money-#{money} where id=#{id}
+	</update>
+	
+	<update id="turnMoney">
+		update user set money=money-#{money} where id=#{id}
+	</update>
+	
+	<update id="turnReception">
+		update user set money=money+#{money} where bank_card=#{bank_card} and name=#{name}
+	</update>
+</mapper>
